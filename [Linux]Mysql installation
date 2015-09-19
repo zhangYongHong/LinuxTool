@@ -1,0 +1,33 @@
+
+
+
+Linux下mysql的安装还是很方便的：
+
+  *sudo apt-get install //先更新一下
+
+  *sudo  apt-get install mysql-server 
+
+  *sudo apt-get install mysql-client
+
+  *sudo apt-get install libmysqlclient-dev
+
+
+
+
+#配置
+ *在安装过程中，会让你设置mysql的登录密码，然后再确定输入一遍，就可以了。
+
+
+
+
+#检查是否安装成功：
+
+*sudo netstat -tap | grep mysql 
+
+如果看到：mysql的的socket处于listen状态则安装成功。
+
+#登录mysql：
+
+ *： sudo -u root -p
+
+ :  然后输入密码，就可以了
