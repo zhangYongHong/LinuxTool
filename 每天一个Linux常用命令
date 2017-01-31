@@ -30,3 +30,73 @@ ls命令是linux下最常用的命令.ls命令就是list的缩写,缺省下ls用
     drwxrwxr-x  5 lenovo lenovo 4096 1月   1 20:08 /home/lenovo/java/CD
     drwxrwxr-x  5 lenovo lenovo 4096 12月 30 23:07 /home/lenovo/java/Char
     drwxrwxr-x  5 lenovo lenovo 4096 1月   1 00:09 /home/lenovo/java/clock
+---
+
+2.cd命令 
+  
+  可以说是Linux中最基本的命令了,其他命令语句要进行操作,都是建立在使用cd命令上的.
+
+命令格式
+  cd [目录名]
+
+命令功能
+  切换当前目前至dirName
+  
+常用范例:
+
+>>进入系统根目录
+
+(1)cd /
+输出:
+  lenovo@zyh:~$ cd /
+  lenovo@zyh:/$
+  说明:进入系统木木根目录,上面的命令执行完后拿ls命令看一下,当前目录已经到系统根目录了.
+输出:
+  lenovo@zyh:/$ ls
+  bin    Desktop  home            lib         media  proc  sbin  sys  var
+  boot   dev      initrd.img      lib64       mnt    root  snap  tmp  vmlinuz
+  cdrom  etc      initrd.img.old  lost+found  opt    run   srv   usr  vmlinuz.old
+(2)cd .. 或者cd ..//
+输出:
+  lenovo@zyh:~$ pwd
+  /home/lenovo
+  lenovo@zyh:~$ cd ..
+  lenovo@zyh:/home$ cd ..//
+  lenovo@zyh:/$ pwd
+  /
+  lenovo@zyh:/$
+说明:进入系统根目录可以使用"cd .."一直退,就可以到达根目录
+
+(3)cd ../..//
+输出:
+  lenovo@zyh:~$ cd ../..//
+  lenovo@zyh:/$ pwd
+  /
+  lenovo@zyh:/$ 
+说明:使用cd命令实现进入当前目录的父目录的父目录
+
+
+>> 使用cd命令进入当前用户主目录
+
+"当前用户主目录"和"系统根目录"是两个不同的概念. 进入当前用户主目录有两个方法.
+
+(1)cd  或者 cd ~ 
+输出:
+  lenovo@zyh:~/java$ pwd
+  /home/lenovo/java
+  lenovo@zyh:~/java$ cd
+  lenovo@zyh:~$ pwd
+  /home/lenovo
+  lenovo@zyh:~$ 
+
+(2) 跳转到指定目录
+cd java  
+输出:
+  lenovo@zyh:~$ cd java
+  lenovo@zyh:~/java$ pwd
+  /home/lenovo/java
+  lenovo@zyh:~/java$
+说明:跳转到当前目录,从根目录开始,目录名前加/.当前目录内的子目录直接写名称即可,就像示例.
+
+
+  
