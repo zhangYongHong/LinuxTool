@@ -176,5 +176,10 @@ cd java
       /home/lenovo
       lenovo@zyh:~$
       '
-      
+      ```
+       lenovo@zyh:~$ cd java/
+       lenovo@zyh:~/java$ pwd
+       /home/lenovo/java
+       lenovo@zyh:~/java$ 
+```
    
