@@ -32,6 +32,8 @@ ls命令是linux下最常用的命令.ls命令就是list的缩写,缺省下ls用
     drwxrwxr-x  5 lenovo lenovo 4096 1月   1 00:09 /home/lenovo/java/clock
 ---
 
+
+
 2.cd命令 
   
   可以说是Linux中最基本的命令了,其他命令语句要进行操作,都是建立在使用cd命令上的.
@@ -98,6 +100,8 @@ cd java
   lenovo@zyh:~/java$
 说明:跳转到当前目录,从根目录开始,目录名前加/.当前目录内的子目录直接写名称即可,就像示例.
 ---
+
+
 
 3.pwd命令
 
@@ -176,6 +180,160 @@ cd java
       /home/lenovo
       lenovo@zyh:~$
       ```
-       
+ ---
+ 
+ 
+ 
+4.mkdir命令
+ 
+  Linux mkdir 命令用来创建制定的名称的目录，要求创建目录的用户在当前目录中具有写权限，并且指定的目录名不能是当前目录中已有的目录。
+
+**命令格式**
+
+```
+mkdir [选项] 目录...
+```
+
+**命令功能**
+
+```
+  通过mkdir命令可以实现在指定位置创建以DirName(指定的文件名)命名的文件夹或目录。要创建文件夹或目录的用户必须对所创建的文件夹的父文件夹具有写权限。并且，所创建的文件夹(目录)不能与其父目录(即父文件夹)中的文件名重名，即同一个目录下不能有同名的(区分大小写)。
+```
+
+**命令参数**
+
+> -m [mode模式，设定权限<模式>,而不是rwxrwxrwx减umask]
+> 
+> -p  [parents 可以是一个路径名称。此时若路径中的某学目录尚不存在，加上此选项后，系统将自动建立好那些尚不存在的目录，即一次可以建立多个目录。]
+> 
+> -v [verbose 每次创建新目录都显示信息]
+> 
+> -help [显示此帮助信息并退出]
+> 
+> -version [输出本本信息并退出]
+
+**命令实例**
+
+实例1: 创建一个空目录
+
+   命令：`mkdir test1`
+   输出:
+
+```
+lenovo@zyh:~$ mkdir test1
+lenovo@zyh:~$ ls
+examples.desktop    java   zyhGit  模板  图片  下载  桌面
+hs_err_pid3482.log  test1  公共的  视频  文档  音乐
+```
+
+实例2: 递归创建多个目录(必须加 -p)
+
+命令: `mkdir test2/test22`
+输出:
+
+```
+lenovo@zyh:~$ cd test1/
+lenovo@zyh:~/test1$ ls
+lenovo@zyh:~/test1$ pwd
+/home/lenovo/test1
+lenovo@zyh:~/test1$ mkdir -p test2/test22
+lenovo@zyh:~/test1$ ll
+总用量 12
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 ./
+drwxr-xr-x 39 lenovo lenovo 4096 2月   2 23:46 ../
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 test2/
+lenovo@zyh:~/test1$ cd test2/
+lenovo@zyh:~/test1/test2$ ll
+总用量 12
+drwxrwxr-x 3 lenovo lenovo 4096 2月   2 23:48 ./
+drwxrwxr-x 3 lenovo lenovo 4096 2月   2 23:48 ../
+drwxrwxr-x 2 lenovo lenovo 4096 2月   2 23:48 test22/
+lenovo@zyh:~/test1/test2$ 
+```
+实例3: 创建权限为777的目录
+
+命令: `mkdir -m 777 test3`
+输出:
+
+```
+lenovo@zyh:~/test1$ pwd
+/home/lenovo/test1
+lenovo@zyh:~/test1$ mkdir -m 777 test3
+lenovo@zyh:~/test1$ ll
+总用量 16
+drwxrwxr-x  4 lenovo lenovo 4096 2月   2 23:52 ./
+drwxr-xr-x 39 lenovo lenovo 4096 2月   2 23:46 ../
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 test2/
+drwxrwxrwx  2 lenovo 
+```
+说明: test3de权限为rwxrwxrwx
+
+实例4: 创建新目录都要显示信息
+
+命令: `mkdir -v test4`
+
+输出:
+
+```
+lenovo@zyh:~/test1$ pwd
+/home/lenovo/test1
+lenovo@zyh:~/test1$ mkdir -v test4
+mkdir: 已创建目录 'test4'
+lenovo@zyh:~/test1$ mkdir -vp test5/test5-1
+mkdir: 已创建目录 'test5'
+mkdir: 已创建目录 'test5/test5-1'
+lenovo@zyh:~/test1$ 
+```
+
+实例5: 一个命令创建项目的目录结构
+
+命令:
+
+```
+lenovo@zyh:~/test1$ pwd
+/home/lenovo/test1
+lenovo@zyh:~/test1$ mkdir -vp scf/{lib/,bin/,doc /{info,product},logs/{info,product},service/deploy /{info,product}}
+```
+
+输出:
+```
+lenovo@zyh:~/test1$ pwd
+/home/lenovo/test1
+lenovo@zyh:~/test1$ mkdir -vp scf/{lib/,bin/,doc/{info,product},logs/{info,product},service/deploy/{info,product}}
+mkdir: 已创建目录 'scf'
+mkdir: 已创建目录 'scf/lib/'
+mkdir: 已创建目录 'scf/bin/'
+mkdir: 已创建目录 'scf/doc'
+mkdir: 已创建目录 'scf/doc/info'
+mkdir: 已创建目录 'scf/doc/product'
+mkdir: 已创建目录 'scf/logs'
+mkdir: 已创建目录 'scf/logs/info'
+mkdir: 已创建目录 'scf/logs/product'
+mkdir: 已创建目录 'scf/service'
+mkdir: 已创建目录 'scf/service/deploy'
+mkdir: 已创建目录 'scf/service/deploy/info'
+mkdir: 已创建目录 'scf/service/deploy/product'
+lenovo@zyh:~/test1$ tree scf
+scf
+├── bin
+├── doc
+│   ├── info
+│   └── product
+├── lib
+├── logs
+│   ├── info
+│   └── product
+└── service
+    └── deploy
+        ├── info
+        └── product
+
+12 directories, 0 files
+
+```
+说明: 感觉第五个很好玩,之前并没有这么建过项目目录.
+
+
+    
 
    
