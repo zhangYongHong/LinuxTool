@@ -197,7 +197,8 @@ mkdir [选项] 目录...
 **命令功能**
 
 ```
-  通过mkdir命令可以实现在指定位置创建以DirName(指定的文件名)命名的文件夹或目录。要创建文件夹或目录的用户必须对所创建的文件夹的父文件夹具有写权限。并且，所创建的文件夹(目录)不能与其父目录(即父文件夹)中的文件名重名，即同一个目录下不能有同名的(区分大小写)。
+  通过mkdir命令可以实现在指定位置创建以DirName(指定的文件名)命名的文件夹或目录。要创建文件夹或目录的用户必须对所创建的文件夹的父文件夹具有写权限。
+  并且，所创建的文件夹(目录)不能与其父目录(即父文件夹)中的文件名重名，即同一个目录下不能有同名的(区分大小写)。
 ```
 
 **命令参数**
@@ -332,6 +333,110 @@ scf
 
 ```
 说明: 感觉第五个很好玩,之前并没有这么建过项目目录.
+---
+
+
+5.rmdir命令
+
+  rmdir命令的功能是删除空目录，一个目录被删除之前必须是空的。（注意，rm - r dir命令可代替rmdir，但是有很大危险性。）
+  删除某目录时也必须具有对父目录的写权限。
+
+最近一个很火的事件是GitLab是在太平洋时间周二晚上发出一系列紧急通知，称一位身处荷兰的疲惫系统管理员在进行数据库复制过程中不小心在一台错误的服务器上
+删除了一个目录，他删除了一个包含 300GB 实时产品数据的文件夹，在取消 rm -rf 删除命令后该文件夹只剩下 4.5GB 数据。
+
+命令格式
+  rmdir [选项]... 目录...
+
+命令功能：
+  该命令从一个目录中删除一个或多个子目录项，删除某目录时也必须具有对父目录的写权限。 
+
+命令参数：
+
+	- p 递归删除目录dirname，当子目录删除后其父目录为空时，也一同被删除。如果整个路径被删除或者由于某种原因保留部分路径，
+      则系统在标准输出上显示相应的信息。 
+
+	- v, --verbose  显示指令执行过程 
+
+
+命令实例：
+
+实例1：rmdir 不能删除非空目录
+
+命令： rmdir scf
+
+  lenovo@zyh:~/test1$ tree scf
+  scf
+  ├── bin
+  ├── doc
+  │   ├── info
+  │   └── product
+  ├── lib
+  ├── logs
+  │   ├── info
+  │   └── product
+  └── service
+      └── deploy
+          ├── info
+          └── product
+
+  12 directories, 0 files
+  lenovo@zyh:~/test1$ rmdir scf
+  rmdir: 删除 'scf' 失败: 目录非空
+  lenovo@zyh:~/test1$ 
+
+说明： rmdir 目录名 命令不能直接删除非空目录
+
+实例2：rmdir -p 当子目录被删除后使它也成为空目录的话，则顺便一并删除 
+
+命令：
+  rmdir -p logs
+
+输出:
+  lenovo@zyh:~/test1$ tree scf
+  scf
+  ├── bin
+  ├── doc
+  │   ├── info
+  │   └── product
+  ├── lib
+  ├── logs
+  │   ├── info
+  │   └── product
+  └── service
+      └── deploy
+          ├── info
+          └── product
+
+  12 directories, 0 files
+  lenovo@zyh:~/test1$ rmdir -p scf/logs
+  rmdir: 删除 'scf/logs' 失败: 目录非空
+  lenovo@zyh:~/test1$ cd scf
+  lenovo@zyh:~/test1/scf$ rmdir -p logs/product
+  rmdir: 删除目录 'logs' 失败: 目录非空
+
+  lenovo@zyh:~/test1/scf/logs$ ls
+  info
+  lenovo@zyh:~/test1/scf/logs$ cd ..
+  lenovo@zyh:~/test1/scf$ rmdir -p logs/info
+
+  0 directories, 0 files
+  lenovo@zyh:~/test1/scf$ cd ..
+  lenovo@zyh:~/test1$ tree scf
+  scf
+  ├── bin
+  ├── doc
+  │   ├── info
+  │   └── product
+  ├── lib
+  └── service
+      └── deploy
+          ├── info
+          └── product
+
+  9 directories, 0 files
+  lenovo@zyh:~/test1$ 
+
+
 
 
     
