@@ -435,6 +435,113 @@ scf
 
   9 directories, 0 files
   lenovo@zyh:~/test1$ 
+---
+
+
+
+ 6.rm命令
+ 
+	rm是常用的命令，该命令的功能为删除一个目录中的一个或多个文件或目录，它也可以将某个目录及其下的所有文件及子目录均删除。对于链接文件，只是删除了链接，原有文件均保持不变。
+
+	rm是一个危险的命令，使用的时候要特别当心，尤其对于新手，否则整个系统就会毁在这个命令（比如在/（根目录）下执行rm * -rf）。所以，我们在执行rm之前最好先确认一下在哪个目录，到底要删除什么东西，操作时保持高度清醒的头脑,不要像GitLab事故一样。
+
+**命令格式：**
+```
+	rm [选项] 文件… 
+```
+**命令功能：**
+ 	删除一个目录中的一个或多个文件或目录，如果没有使用- r选项，则rm不会删除目录。如果使用 rm 来删除文件，通常仍可以将该文件恢复原状。
+
+命令参数：
+
+    -f ,        [--force    忽略不存在的文件，从不给出提示]
+    -i, [--interactive 进行交互式删除]
+    -r, -R, [--recursive   指示rm将参数中列出的全部目录和子目录均递归地删除]
+    -v, [--verbose    详细显示进行的步骤]
+     --help     显示此帮助信息并退出
+     --version  输出版本信息并退出
+
+**命令实例：**
+
+实例1：删除文件file，系统会先询问是否删除。 
+
+命令:  `rm 文件名`
+输出：
+lenovo@zyh:~/test1$ ll
+总用量 28
+drwxrwxr-x  7 lenovo lenovo 4096 2月   6 00:04 ./
+drwxr-xr-x 41 lenovo lenovo 4096 2月   5 23:51 ../
+-rw-rw-r--  1 lenovo lenovo    0 2月   6 00:04 abz.txt
+drwxrwxr-x  6 lenovo lenovo 4096 2月   3 23:14 scf/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 test2/
+drwxrwxrwx  2 lenovo lenovo 4096 2月   2 23:52 test3/
+drwxrwxr-x  2 lenovo lenovo 4096 2月   2 23:55 test4/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:55 test5/
+lenovo@zyh:~/test1$ rm abz.txt
+lenovo@zyh:~/test1$ ll
+总用量 28
+drwxrwxr-x  7 lenovo lenovo 4096 2月   6 00:04 ./
+drwxr-xr-x 41 lenovo lenovo 4096 2月   5 23:51 ../
+drwxrwxr-x  6 lenovo lenovo 4096 2月   3 23:14 scf/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 test2/
+drwxrwxrwx  2 lenovo lenovo 4096 2月   2 23:52 test3/
+drwxrwxr-x  2 lenovo lenovo 4096 2月   2 23:55 test4/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:55 test5/
+lenovo@zyh:~/test1$ 
+
+说明：如果想强行删除,则可以加一个 -f 参数
+
+实例3：删除任何.log文件；删除前逐一询问确认 
+
+命令：`rm -i *.log`
+输出：
+root@zyh:/home/lenovo/test1# ll
+总用量 28
+drwxrwxr-x  7 lenovo lenovo 4096 2月   6 00:08 ./
+drwxr-xr-x 41 lenovo lenovo 4096 2月   5 23:51 ../
+-rw-r--r--  1 root   root      0 2月   6 00:08 a.log
+-rw-r--r--  1 root   root      0 2月   6 00:08 b.log
+drwxrwxr-x  6 lenovo lenovo 4096 2月   3 23:14 scf/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 test2/
+drwxrwxrwx  2 lenovo lenovo 4096 2月   2 23:52 test3/
+drwxrwxr-x  2 lenovo lenovo 4096 2月   2 23:55 test4/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:55 test5/
+root@zyh:/home/lenovo/test1# rm -i *.log
+rm：是否删除普通空文件 'a.log'？ y
+rm：是否删除普通空文件 'b.log'？ y
+root@zyh:/home/lenovo/test1# ll
+总用量 28
+drwxrwxr-x  7 lenovo lenovo 4096 2月   6 00:09 ./
+drwxr-xr-x 41 lenovo lenovo 4096 2月   5 23:51 ../
+drwxrwxr-x  6 lenovo lenovo 4096 2月   3 23:14 scf/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:48 test2/
+drwxrwxrwx  2 lenovo lenovo 4096 2月   2 23:52 test3/
+drwxrwxr-x  2 lenovo lenovo 4096 2月   2 23:55 test4/
+drwxrwxr-x  3 lenovo lenovo 4096 2月   2 23:55 test5/
+root@zyh:/home/lenovo/test1# 
+
+实例4：rm -rf  bin命令会将 bin 子目录及子目录中所有档案删除,并且不用一一确认
+
+命令： `rm -rf  bin` 
+输出：
+root@zyh:/home/lenovo/test1/scf# ls
+bin  doc  lib  service
+root@zyh:/home/lenovo/test1/scf/bin# ll
+总用量 8
+drwxrwxr-x 2 lenovo lenovo 4096 2月   6 00:11 ./
+drwxrwxr-x 6 lenovo lenovo 4096 2月   3 23:14 ../
+-rw-r--r-- 1 root   root      0 2月   6 00:11 a.log
+-rw-r--r-- 1 root   root      0 2月   6 00:11 b.log
+root@zyh:/home/lenovo/test1/scf/bin# cd ..
+root@zyh:/home/lenovo/test1/scf# rm -rf bin
+root@zyh:/home/lenovo/test1/scf# ll
+总用量 20
+drwxrwxr-x 5 lenovo lenovo 4096 2月   6 00:14 ./
+drwxrwxr-x 7 lenovo lenovo 4096 2月   6 00:09 ../
+drwxrwxr-x 4 lenovo lenovo 4096 2月   2 23:58 doc/
+drwxrwxr-x 2 lenovo lenovo 4096 2月   2 23:58 lib/
+drwxrwxr-x 3 lenovo lenovo 4096 2月   2 23:58 service/
+root@zyh:/home/lenovo/test1/scf# 
 
 
 
